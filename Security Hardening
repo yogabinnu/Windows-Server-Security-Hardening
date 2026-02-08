@@ -1,0 +1,228 @@
+Phase 1 – Account & Identity Hardening
+Step 1: Disable Guest User Account (Completed – Keep)
+
+Risk: Anonymous access, lateral movement, reconnaissance.
+
+Additional Advanced Controls
+
+Rename Guest account before disabling
+
+Monitor Event ID: 4625 (Failed login attempts)
+
+Alert if Guest account activity is detected
+
+Step 2: Disable Default Local Administrator (Completed – Keep)
+Advanced Security Improvements
+
+Rename "Administrator" account before disabling
+
+Audit any usage before disabling
+
+Track privileged login events:
+
+Key SIEM Events:
+
+Event ID 4624 → Successful login
+
+Event ID 4672 → Admin privileges assigned
+
+Step 3: Create Unique Secure Administrator Account (Completed – Keep)
+Upgrade to Enterprise-Level Practice
+
+Instead of only creating:
+
+New_admin
+
+Apply:
+
+Strong Admin Design Standard
+
+Name: SecOps_Admin01
+
+Password:
+
+Minimum 15 characters
+
+Mix of:
+
+Uppercase
+
+Lowercase
+
+Numbers
+
+Symbols
+
+Add Extra Controls
+
+Disable password change by non-admin
+
+Enable:
+
+"Password never expires" (ONLY for secured admin accounts)
+
+Document admin creation in security log
+
+Phase 2 – Privileged Access Protection (NEW – ADVANCED)
+Step 4: Restrict Remote Access (Enhanced)
+Basic step already done:
+
+Restrict RDP
+
+Allow only new admin account
+
+ADVANCED HARDENING
+1) Limit RDP via Firewall
+
+Allow RDP only from:
+
+SOC network
+
+Admin workstation IP
+
+2) Change Default RDP Port (3389)
+
+Attackers constantly scan this port.
+
+3) Enable Network Level Authentication (NLA)
+
+Path:
+
+System Properties → Remote → Advanced
+4) Enable RDP Login Auditing
+
+Track:
+
+Event ID 4624 (Success)
+
+Event ID 4625 (Failure)
+
+Event ID 4778 (Session reconnect)
+
+Phase 3 – Brute Force Protection (Enhanced)
+Step 5: Configure Account Lockout Policy (Completed – Upgrade)
+Recommended Enterprise Values
+Setting	Recommended
+Lockout threshold	5 attempts
+Lockout duration	30 minutes
+Reset counter	15 minutes
+Advanced Add-Ons
+
+Enable:
+
+Audit Account Logon Events
+Audit Logon Events
+
+Purpose:
+
+Detect brute force attacks
+
+Feed alerts into Splunk
+
+Phase 4 – Service Attack Surface Reduction (Enhanced)
+Step 6: Disable Unnecessary Services 
+High-Risk Services to Review
+
+Disable if not needed:
+
+Remote Registry
+
+Telnet
+
+SMBv1
+
+Print Spooler (on non-print servers)
+
+Windows Error Reporting
+
+Bluetooth Support Service
+
+Advanced Control
+
+Set Startup Type:
+
+Manual / Disabled
+Phase 5 – Advanced Hardening
+Step 7: Enable Windows Defender Advanced Protection
+
+Enable Real-time protection
+
+Enable Cloud protection
+
+Enable Controlled Folder Access
+
+Step 8: Enable Security Auditing Policies
+
+Path:
+
+Local Security Policy → Advanced Audit Policy
+
+Enable logging for:
+
+Logon events
+
+Account changes
+
+Privilege use
+
+Process creation
+
+These logs are CRITICAL for SIEM detection.
+
+Step 9: Enable PowerShell Logging (SOC-Level Control)
+
+Attackers use PowerShell heavily.
+
+Enable:
+
+Module logging
+
+Script block logging
+
+Transcription logging
+
+Benefits:
+
+Detect malware activity
+
+Track attacker commands
+
+Step 10: Disable USB Storage Access (Optional – Enterprise)
+
+Prevents:
+
+Data exfiltration
+
+Malware via USB
+
+ Phase 6 – SIEM Integration Readiness
+
+After hardening, ensure logs are forwarded to Splunk:
+
+Monitor These Critical Events:
+Event ID	Description
+4624	Successful login
+4625	Failed login
+4720	New user created
+4726	User deleted
+4732	User added to admin group
+4740	Account locked
+
+This connects:
+Server Hardening → Detection → SOC Investigation
+
+Security Improvements Achieved
+
+After applying advanced hardening:
+
+Default attack paths removed
+
+Privileged access protected
+
+Brute force resistance increased
+
+Remote attack surface reduced
+
+Insider threat visibility improved
+
+SIEM monitoring strengthened
